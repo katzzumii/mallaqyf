@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Interactiva QYFA</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Malla Interactiva Química y Farmacia</h1>
+  <div id="malla"></div>
+
+  <script>
+const ramos = [
+  {
+    semestre: "Primer Año - Primer Semestre",
+    ramos: [
+      { nombre: "Química General I (DQUI 1045)", id: "qg1", desbloquea: ["qg2"] },
+      { nombre: "Biología Celular (DBIO 1091)", id: "bc", desbloquea: ["fisiologia"] },
+      { nombre: "Introducción a las Ciencias Farmacéuticas (QYFA A001)", id: "introcf", desbloquea: ["fundamentos"] },
+      { nombre: "Matemáticas (DCEX 00002)", id: "mate", desbloquea: ["calculo"] },
+      { nombre: "Integrado de Habilidades Científicas para el QF (QYFA A002)", id: "integrado", desbloquea: [] },
+      { nombre: "Antropología (FORI 0001)", id: "antro", desbloquea: ["etica"] }
+    ]
+  },
+  {
+    semestre: "Primer Año - Segundo Semestre",
+    ramos: [
+      { nombre: "Química General II (DQUI 1046)", id: "qg2", desbloquea: ["analitica"] },
+      { nombre: "Bioestadística (DCEX 0005)", id: "bioest", desbloquea: [] },
+      { nombre: "Física (DCEX 0019)", id: "fisica", desbloquea: ["fisicoq"] },
+      { nombre: "Cálculo Diferencial (DCEX 0003)", id: "calculo", desbloquea: [] },
+      { nombre: "Fundamentos del Quehacer Farmacéutico (QYFA B001)", id: "fundamentos", desbloquea: [] },
+      { nombre: "Ética (FORI 0002)", id: "etica", desbloquea: ["persona"] }
+    ]
+  },
+  {
+    semestre: "Segundo Año - Tercer Semestre",
+    ramos: [
+      { nombre: "Química Analítica Cualicuantitativa (DQUI 1047)", id: "analitica", desbloquea: ["instrumental"] },
+      { nombre: "Química Orgánica I (DQUI 1052)", id: "organica1", desbloquea: ["organica2"] },
+      { nombre: "Fisiología Integrada (DBIO 1085)", id: "fisiologia", desbloquea: ["fisiopato"] },
+      { nombre: "Fisicoquímica (DQUI 1053)", id: "fisicoq", desbloquea: ["biofarmacia"] },
+      { nombre: "Salud Poblacional (DPSU 0012)", id: "saludp", desbloquea: [] },
+      { nombre: "Persona y Sociedad (FORI 0003)", id: "persona", desbloquea: [] }
+    ]
+  },
+  {
+    semestre: "Segundo Año - Cuarto Semestre",
+    ramos: [
+      { nombre: "Análisis Químico Instrumental (DQUI 1054)", id: "instrumental", desbloquea: [] },
+      { nombre: "Bioquímica General (DBIO 1094)", id: "bioq", desbloquea: ["micro"] },
+      { nombre: "Fisiopatología (DMOR 0019)", id: "fisiopato", desbloquea: ["farma1"] },
+      { nombre: "Química Orgánica Avanzada (DQUI 1055)", id: "organica2", desbloquea: ["tec1"] },
+      { nombre: "Epidemiología (DPSU 0014)", id: "epi", desbloquea: [] }
+    ]
+  },
+  {
+    semestre: "Tercer Año - Quinto Semestre",
+    ramos: [
+      { nombre: "Salud Digital (FACU 0004)", id: "digital", desbloquea: [] },
+      { nombre: "Microbiología General (DBIO 1095)", id: "micro", desbloquea: ["farma2"] },
+      { nombre: "Farmacología I (DBIO 1087)", id: "farma1", desbloquea: ["farma2"] },
+      { nombre: "Tecnología Farmacéutica I (QYFA E001)", id: "tec1", desbloquea: ["tec2"] },
+      { nombre: "Química Farmacéutica I (QYFA E002)", id: "qf1", desbloquea: ["qf2"] }
+    ]
+  },
+  {
+    semestre: "Tercer Año - Sexto Semestre",
+    ramos: [
+      { nombre: "Bioética (DEBI 0002)", id: "bioetica", desbloquea: [] },
+      { nombre: "Farmacología II (DBIO 1096)", id: "farma2", desbloquea: ["farma_clinica"] },
+      { nombre: "Tecnología Farmacéutica II (QYFA F001)", id: "tec2", desbloquea: ["relacion"] },
+      { nombre: "Química Farmacéutica II (QYFA F002)", id: "qf2", desbloquea: ["fitoterapia"] }
+    ]
+  },
+  {
+    semestre: "Cuarto Año - Séptimo Semestre",
+    ramos: [
+      { nombre: "Metodología de la Investigación (DPSU 0011)", id: "metodologia", desbloquea: [] },
+      { nombre: "Control y Aseguramiento de Calidad (QYFA G003)", id: "control", desbloquea: [] },
+      { nombre: "Farmacología Clínica (QYFA G001)", id: "farma_clinica", desbloquea: [] },
+      { nombre: "Relación Farmacéutica (QYFA G004)", id: "relacion", desbloquea: [] },
+      { nombre: "Farmacognosia y Fitoterapia (QYFA H005)", id: "fitoterapia", desbloquea: [] }
+    ]
+  },
+  {
+    semestre: "Cuarto Año - Octavo Semestre",
+    ramos: [
+      { nombre: "Biofarmacia (QYFA H003)", id: "biofarmacia", desbloquea: [] },
+      { nombre: "Farmacia Clínica (QYFA H002)", id: "farmacia_clinica", desbloquea: [] },
+      { nombre: "Toxicología (QYFA H001)", id: "toxico", desbloquea: [] },
+      { nombre: "Farmacia Asistencial (QYFA H006)", id: "farmacia_asist", desbloquea: [] },
+      { nombre: "Electivo Formación Integral 1 (ELECFOR 01)", id: "elecfor1", desbloquea: [] }
+    ]
+  },
+  {
+    semestre: "Quinto Año - Noveno Semestre",
+    ramos: [
+      { nombre: "Gestión y Marketing Farmacéutico (QYFA I001)", id: "gestion", desbloquea: [] },
+      { nombre: "Farmacovigilancia y Tecnovigilancia (QYFA I002)", id: "vigilancia", desbloquea: [] },
+      { nombre: "Electivo Profesional 1 (ELECQYFA 01)", id: "elec1", desbloquea: [] },
+      { nombre: "Electivo Profesional 2 (ELECQYFA 02)", id: "elec2", desbloquea: [] },
+      { nombre: "Electivo Formación Integral 2 (ELECFOR 02)", id: "elecfor2", desbloquea: [] }
+    ]
+  },
+  {
+    semestre: "Quinto Año - Décimo Semestre",
+    ramos: [
+      { nombre: "Internado", id: "internado", desbloquea: [] }
+    ]
+  }
+];
+  </script>
+</html>
