@@ -1,0 +1,77 @@
+body {
+  font-family: 'Georgia', serif;
+  background-color: #fff0f5;
+  color: #5a3a3c;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #b06c79;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+#malla {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.semestre {
+  background-color: #fce4ec;
+  border-left: 8px solid #d48c9c;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(211, 155, 167, 0.2);
+}
+
+.semestre h2 {
+  color: #a2556f;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  border-bottom: 2px solid #e6b0bf;
+  padding-bottom: 5px;
+}
+
+.ramo {
+  background-color: #fde9f0;
+  border: 1px solid #e8b1c3;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: background-color 0.3s ease;
+  box-shadow: 1px 1px 5px rgba(222, 153, 173, 0.2);
+}
+
+.ramo.aprobado {
+  background-color: #f8c3d5;
+  border-color: #bb7086;
+  opacity: 1;
+}
+
+.ramo.bloqueado {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.ramo input[type="checkbox"] {
+  transform: scale(1.3);
+  accent-color: #c86c8c;
+  cursor: pointer;
+}
+
+.ramo label {
+  flex: 1;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.desbloqueos {
+  font-size: 12px;
+  color: #9b4e66;
+  margin-top: 3px;
+}
